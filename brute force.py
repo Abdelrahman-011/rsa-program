@@ -1,13 +1,27 @@
-def brute_force_private_exponent(N, e):
-    """Brute force the private exponent d."""
-    Euler_totient = N - 1  # Since N = pq, Euler's totient function is N - 1
-    d = 1  # Start with a candidate value of 1
-    while True:  # Loop continues until correct value of d is found
-        if (e * d) % Euler_totient == 1:
-            return d
-        d += 1  # Try the next value of d
+import timeit
 
-N = 21509
-e = 65537
-private_exponent = brute_force_private_exponent(N, e)
-print("Private exponent d is:", private_exponent)
+
+def brute_force(N, e, message, cypher):
+  phi = N - 1
+  for d in range(phi):
+    if check_d(N, e, d, message, cypher):
+      return d, True
+  return None, False
+
+
+def check_d(N, e, d, message, cypher):
+  plain = pow(cypher, d, N)
+  return message == plain
+
+
+N = 1000
+e = 3
+message = 7
+cypher = pow(message, e, N)
+start_time = timeit.default_timer()
+d, is_correct = brute_force(N, e, message, cypher)
+end_time = timeit.default_timer()
+execution_time = (end_time - start_time) 
+print("The Execution time of the code is:", execution_time, "seconds")
+print("Private exponent d is:", d)
+print("Is private exponent correct:", is_correct)
