@@ -26,10 +26,13 @@ def brute_force(N, e):
             return d, end_time - start_time
     return None, None
 
-def check_d(N, e, d, message, cypher):
-  plain = pow(cypher, d, N)
-  return message == plain
-
+def check_d(d, N, e, message):
+    """
+    Verify if the calculated private exponent (d) is correct.
+    """
+    encrypted_message = pow(message, e, N)
+    decrypted_message = pow(encrypted_message, d, N)
+    return decrypted_message == message, None, None  # Return the correctness and placeholder values for time
 
 # Test the functions
 N = 204713
