@@ -59,3 +59,6 @@ time_taken = (end_time - start_time) * 1000
 
 print("Private exponent d:", d)
 print("Time taken:", time_taken, "milliseconds")
+print("Prime factor p:", p)
+print("Prime factor q:", q)
+
